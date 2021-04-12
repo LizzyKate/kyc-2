@@ -71,6 +71,10 @@
 	height: calc(100vh - 82px);
 	overflow-y: scroll;
 }
+
+.__content img {
+	height: 16px;
+}
 .__top {
 	background: #f8f8f8;
 	padding: 26px 37px;
