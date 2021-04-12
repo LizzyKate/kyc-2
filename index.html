@@ -27,10 +27,10 @@
 					<div class="w-1/3 flex flex-col mt-4">
 						<div class="flex space-x-4 items-center">
 							<div>
-								<div class="untick" v-if="profileUntick"></div>
-								<div v-if="profileTick">
+								<div v-if="stage > 0">
 									<img src="/image/tick.svg" alt="" />
 								</div>
+								<div class="untick" v-else></div>
 							</div>
 							<div>
 								<p class="biotif text-lg __profile">Profile</p>
@@ -38,10 +38,11 @@
 						</div>
 						<div class="flex space-x-4 items-center">
 							<div>
-								<div class="untick" v-if=socialUntick></div>
-								<div v-if="socialTick">
+								
+								<div v-if="stage > 1">
 									<img src="/image/tick.svg" alt="" />
 								</div>
+								<div class="untick" v-else></div>
 							</div>
 							<div>
 								<p class="biotif text-lg __profile">Contact</p>
@@ -49,10 +50,11 @@
 						</div>
 						<div class="flex space-x-4 items-center">
 							<div>
-								<div class="untick" v-if="settleUntick"></div>
-								<div v-if="settleTick">
+								
+								<div v-if="stage > 2">
 									<img src="/image/tick.svg" alt="" />
 								</div>
+								<div class="untick" v-else></div>
 							</div>
 							<div>
 								<p class="biotif text-lg __profile">Settlement</p>
@@ -69,277 +71,271 @@
 								<p class="biotif text-lg __profile">Document</p>
 							</div>
 						</div>
-
 					</div>
 					<div class="w-1/3 ">
 						<!-- profile -->
-						<keep-alive>
-							<form @submit.prevent="nextContact()" class="bg-white py-4 px-10 __middle" v-if="profile">
-								<div class="px-4 py-2 border-2 border-grey rounded relative my-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Name</label>
-									<input type="text" v-model="name"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
-										required>
 
-								</div>
+						<div class="bg-white py-4 px-10 __middle" v-if="stage === 0">
+							<div class="px-4 py-2 border-2 border-grey rounded relative my-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Name</label>
+								<input type="text" v-model="name"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
+									required>
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Email</label>
+								<input type="email" v-model="email"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
+									required>
 
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Email</label>
-									<input type="email" v-model="email"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
-										required>
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Phone
+									Number</label>
+								<input type="text" v-model="Phone_number"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
+									required>
 
-								</div>
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Phone
-										Number</label>
-									<input type="text" v-model="Phone_number"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
-										required>
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Address</label>
+								<input type="text" v-model="Address"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
+									required>
 
-								</div>
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Address</label>
-									<input type="text" v-model="Address"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
-										required>
+							</div>
 
-								</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Gender</label>
+								<select name="" id="" v-model="Gender"
+									class=" bg-transparent appearance-none text-gray-700 pt-4 leading-tight focus:outline-none focus:shadow-outline w-full"
+									id="name" required>
+									<option selected disabled></option>
 
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Gender</label>
-									<select name="" id="" v-model="Gender"
-										class=" bg-transparent appearance-none text-gray-700 pt-4 leading-tight focus:outline-none focus:shadow-outline w-full"
-										id="name" required>
-										<option selected disabled></option>
-
-										<option v-for="(sex, i) in genderType" :key="i" :value="sex.id"
-											@click="Gender = sex.id">
-											{{ sex.sexType }}
-										</option>
-									</select>
+									<option v-for="(sex, i) in genderType" :key="i" :value="sex.id"
+										@click="Gender = sex.id">
+										{{ sex.sexType }}
+									</option>
+								</select>
 
 
-								</div>
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
 
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Country</label>
-									<select name="" id="" v-model="Country"
-										class=" bg-transparent appearance-none text-gray-700 pt-4 leading-tight focus:outline-none focus:shadow-outline w-full"
-										id="name" required>
-										<option selected disabled></option>
-										<option v-for="(region, a) in countryName" :key="a" :value="region.regionId"
-											@click="Country = region.regionId">
-											{{region.regionName}}
-										</option>
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Country</label>
+								<select name="" id="" v-model="Country"
+									class=" bg-transparent appearance-none text-gray-700 pt-4 leading-tight focus:outline-none focus:shadow-outline w-full"
+									id="name" required>
+									<option selected disabled></option>
+									<option v-for="(region, a) in countryName" :key="a" :value="region.regionId"
+										@click="Country = region.regionId">
+										{{region.regionName}}
+									</option>
 
-									</select>
+								</select>
 
-								</div>
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">State</label>
-									<select name="" id="" v-model="State"
-										class=" bg-transparent appearance-none text-gray-700 pt-4 leading-tight focus:outline-none focus:shadow-outline w-full"
-										id="name" required>
-										<option selected disabled></option>
-										<option v-for="(region, b) in stateName" :key="b" :value="region.regionId"
-											@click="Country = region.regionId">
-											{{region.regionName}}
-										</option>
-									</select>
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">State</label>
+								<select name="" id="" v-model="State"
+									class=" bg-transparent appearance-none text-gray-700 pt-4 leading-tight focus:outline-none focus:shadow-outline w-full"
+									id="name" required>
+									<option selected disabled></option>
+									<option v-for="(region, b) in stateName" :key="b" :value="region.regionId"
+										@click="Country = region.regionId">
+										{{region.regionName}}
+									</option>
+								</select>
 
-								</div>
+							</div>
 
-								<div class="mb-8">
-									<label
-										class=" flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
-										<svg :class="Picture !== '' ? 'hidden' : 'block'" class="w-8 h-8"
-											fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-											<path
-												d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-										</svg>
-										<div class="text-center">
-											<span :class="Picture !== '' ? 'hidden' : 'block'"
-												class="mt-2 text-base text-center leading-normal">Upload Your Profile
-												Picture</span>
-											<span class="mt-2 text-base text-center leading-normal">{{Picture}} </span>
-										</div>
+							<div class="mb-8">
+								<label
+									class=" flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+									<svg :class="Picture !== '' ? 'hidden' : 'block'" class="w-8 h-8"
+										fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+										<path
+											d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+									</svg>
+									<div class="text-center">
+										<span :class="Picture !== '' ? 'hidden' : 'block'"
+											class="mt-2 text-base text-center leading-normal">Upload Your Profile
+											Picture</span>
+										<span class="mt-2 text-base text-center leading-normal">{{Picture}} </span>
+									</div>
 
-										<input type='file' class="hidden" @change="image()" required />
-									</label>
-								</div>
-								<div class="flex justify-center items-center">
+									<input type='file' class="hidden" @change="image()" required />
+								</label>
+							</div>
+							<div class="flex justify-center items-center">
 
-									<button type="submit"
-										class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Next</button>
-								</div>
-							</form>
-						</keep-alive>
+								<button type="input" @click="nextContact()"
+									class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">
+									Next
+								</button>
+							</div>
+						</div>
 
-						<keep-alive>
-							<form @submit.prevent="nextSettlement()" class="bg-white py-4 px-10 __middle"
-								v-if="contact">
-								<div class="px-4 py-2 border-2 border-grey rounded relative my-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Social media
-										Link</label>
-									<input v-model="Social" type="text"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
-										required>
+						<div class="bg-white py-4 px-10 __middle" v-if="stage === 1">
+							<div class="px-4 py-2 border-2 border-grey rounded relative my-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Social media
+									Link
+								</label>
+								<input v-model="Social" type="text"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
+									required>
 
-								</div>
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Next Of
+									Kin</label>
+								<input type="text" v-model="Next_of_kin"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
+									required>
 
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Next Of
-										Kin</label>
-									<input type="text" v-model="Next_of_kin"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
-										required>
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Phone
+									Number</label>
+								<input type="text" v-model='Kin_Phone_number'
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
+									required>
 
-								</div>
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Phone
-										Number</label>
-									<input type="text" v-model='Kin_Phone_number'
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
-										required>
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Relationship</label>
+								<input type="text" v-model="Kin_Relationship"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
+									required>
 
-								</div>
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label
-										class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Relationship</label>
-									<input type="text" v-model="Kin_Relationship"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white"
-										required>
+							</div>
+							<div class="flex justify-between items-center">
+								<button @click="stage--"
+									class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Back</button>
+								<button @click="nextSettlement"
+									class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Next</button>
+							</div>
+						</div>
 
-								</div>
+						<div class="bg-white py-4 px-10 __middle" v-if="stage === 2">
+							<div class="px-4 py-2 border-2 border-grey rounded relative my-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Bank
+									Name</label>
+								<input type="text" v-model="Bank_Name"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white">
 
-								<div class="flex justify-between items-center">
-									<button @click="profiled()"
-										class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Back</button>
-									<button type="submit"
-										class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Next</button>
-								</div>
+							</div>
 
-							</form>
-						</keep-alive>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Account
+									Number</label>
+								<input type="text" v-model="Account_Number"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white">
 
-						<keep-alive>
-							<form @submit.prevent="nextDocument" class="bg-white py-4 px-10 __middle" v-if="settlement">
-								<div class="px-4 py-2 border-2 border-grey rounded relative my-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Bank Name</label>
-									<input type="text" v-model="Bank_Name"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white">
+							</div>
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Bvn</label>
+								<input type="text" v-model="Bvn"
+									class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white">
 
-								</div>
+							</div>
 
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Account
-										Number</label>
-									<input type="text" v-model="Account_Number"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white">
+							<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
+								<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Account
+									Type</label>
+								<select name="" id="" v-model="accountMode"
+									class=" bg-transparent appearance-none text-gray-700 pt-4 leading-tight focus:outline-none focus:shadow-outline w-full"
+									id="name" required>
+									<option selected disabled></option>
 
-								</div>
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Bvn</label>
-									<input type="text" v-model="Bvn"
-										class="appearance-none border-2 border-white rounded w-full py-2 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-white">
+									<option v-for="(account, i) in accountType" :key="i" :value="account.id"
+										@click="accountMode = account.id">
+										{{ account.type }}
+									</option>
+								</select>
 
-								</div>
+							</div>
+							<div class="flex justify-between items-center">
+								<button @click="stage--"
+									class="py-2 px-8 bg-gray-300g focus:outline-none rounded-md biotif text-sm">Edit</button>
+								<button @click="nextDocument"
+									class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Next</button>
+							</div>
+						</div>
 
-								<div class="px-4 py-2 border-2 border-grey rounded relative mb-4">
-									<label class="absolute -my-4 -mx-2 bg-white px-2 text-grey-darker">Account
-										Type</label>
-									<select name="" id="" v-model="accountMode"
-										class=" bg-transparent appearance-none text-gray-700 pt-4 leading-tight focus:outline-none focus:shadow-outline w-full"
-										id="name" required>
-										<option selected disabled></option>
+						<div  class="bg-white py-4 px-10 __middle" v-if="stage === 3">
+							<div class="mb-8">
+								<label
+									class=" flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+									<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20">
+										<path
+											d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+									</svg>
+									<div class="text-center">
+										<span :class="Id !== '' ? 'hidden' : 'block'"
+											class="mt-2 text-base text-center leading-normal">Upload Your Valid
+											ID</span>
+										<span class="mt-2 text-base text-center leading-normal">{{Id}} </span>
+									</div>
+									<input type='file' class="hidden" @change="validId()" required />
+								</label>
+							</div>
+							<div class="mb-8">
+								<label
+									class=" flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+									<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20">
+										<path
+											d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+									</svg>
+									<div class="text-center">
+										<span :class="Nepa_Bill !== '' ? 'hidden' : 'block'"
+											class="mt-2 text-base text-center leading-normal">Upload Your Nepa
+											Bill</span>
+										<span class="mt-2 text-base text-center leading-normal">{{Nepa_Bill}}
+										</span>
+									</div>
+									<input type='file' class="hidden" @change=nepaBill() required />
+								</label>
+							</div>
+							<div class="mb-8">
+								<label
+									class=" flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+									<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20">
+										<path
+											d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+									</svg>
+									<div class="text-center">
+										<span :class="Govt_letter !== '' ? 'hidden' : 'block'"
+											class="mt-2 text-base text-center leading-normal">Upload Your
+											Government
+											Issued Letter With Home Address</span>
+										<span class="mt-2 text-base text-center leading-normal">{{Govt_letter}}
+										</span>
+									</div>
 
-										<option v-for="(account, i) in accountType" :key="i" :value="account.id"
-											@click="accountMode = account.id">
-											{{ account.type }}
-										</option>
-									</select>
+									<input type='file' class="hidden" @change="letter()" required />
+								</label>
+							</div>
+							<div class="flex justify-between items-center">
+								<button @click="stage--"
+									class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Edit</button>
+								<button @click="submit"
+									class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Submit</button>
+							</div>
+						</div>
 
-								</div>
-								<div class="flex justify-between items-center">
-									<button
-										class="py-2 px-8 bg-gray-300g focus:outline-none rounded-md biotif text-sm">Edit</button>
-									<button
-										class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Next</button>
-								</div>
-							</form>
-						</keep-alive>
-
-
-						<keep-alive>
-							<form @submit.prevent='submit()' v-if="document" class="bg-white py-4 px-10 __middle">
-								<div class="mb-8">
-									<label
-										class=" flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
-										<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 20 20">
-											<path
-												d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-										</svg>
-										<div class="text-center">
-											<span :class="Id !== '' ? 'hidden' : 'block'"
-												class="mt-2 text-base text-center leading-normal">Upload Your Valid ID</span>
-											<span class="mt-2 text-base text-center leading-normal">{{Id}} </span>
-										</div>
-										<input type='file' class="hidden" @change="validId()" required/>
-									</label>
-								</div>
-								<div class="mb-8">
-									<label
-										class=" flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
-										<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 20 20">
-											<path
-												d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-										</svg>
-										<div class="text-center">
-											<span :class="Nepa_Bill !== '' ? 'hidden' : 'block'"
-												class="mt-2 text-base text-center leading-normal">Upload Your Nepa Bill</span>
-											<span class="mt-2 text-base text-center leading-normal">{{Nepa_Bill}} </span>
-										</div>
-										<input type='file' class="hidden" @change=nepaBill() required/>
-									</label>
-								</div>
-								<div class="mb-8">
-									<label
-										class=" flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
-										<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 20 20">
-											<path
-												d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-										</svg>
-										<div class="text-center">
-											<span :class="Govt_letter !== '' ? 'hidden' : 'block'"
-												class="mt-2 text-base text-center leading-normal">Upload Your Government
-												Issued Letter With Home Address</span>
-											<span class="mt-2 text-base text-center leading-normal">{{Govt_letter}} </span>
-										</div>
-									
-										<input type='file' class="hidden" @change="letter()" required />
-									</label>
-								</div>
-								<div class="flex justify-between items-center">
-									<button
-										class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Edit</button>
-									<button type="submit"
-										class="py-2 px-8 bg-gray-300 focus:outline-none rounded-md biotif text-sm">Submit</button>
-								</div>
-							</form>
-						</keep-alive>
 
 
 					</div>
 					<div class="w-1/3 mt-4">
-						<div class="meter ml-auto">
-							<span style="width: 75%"></span>
+						<div class="meter ml-auto overflow-hidden">
+							<span :style="{ width:( 100 * ((stage + 1)/4)) + '%' }" class="overflow-hidden"></span>
 						</div>
 						<div class="progress mt-4 biotif text-right">
-							<p>3 of 4 Complete</p>
+							<p>{{stage + 1}} of 4 Complete</p>
 						</div>
 					</div>
 
@@ -356,6 +352,8 @@
 			el: "#app",
 			data() {
 				return {
+					stage: 0,
+					//model details
 					profile: true,
 					profileTick: false,
 					profileUntick: true,
@@ -364,7 +362,7 @@
 					settleTick: false,
 					settleUntick: true,
 					doTick: false,
-					doUntick : true,
+					doUntick: true,
 					contact: false,
 					settlement: false,
 					document: false,
@@ -388,45 +386,45 @@
 					Country: '',
 					State: '',
 					genderType: [{
-							sexType: 'Male ',
-							id: 'Male '
-						},
-						{
-							sexType: 'Female',
-							id: 'Female'
-						},
+						sexType: 'Male ',
+						id: 'Male '
+					},
+					{
+						sexType: 'Female',
+						id: 'Female'
+					},
 
 					],
 					countryName: [{
-							regionName: 'Nigeria',
-							regionId: 'Nigeria'
-						},
-						{
-							regionName: 'Togo',
-							regionId: 'Togo'
-						}
+						regionName: 'Nigeria',
+						regionId: 'Nigeria'
+					},
+					{
+						regionName: 'Togo',
+						regionId: 'Togo'
+					}
 					],
 					stateName: [{
-							regionName: 'Lagos',
-							regionId: 'Lagos'
-						},
-						{
-							regionName: 'Abuja',
-							regionId: 'Abuja'
-						}
+						regionName: 'Lagos',
+						regionId: 'Lagos'
+					},
+					{
+						regionName: 'Abuja',
+						regionId: 'Abuja'
+					}
 					],
 					accountType: [{
-							type: 'Savings Account',
-							id: 'savings'
-						},
-						{
-							type: 'Current Account',
-							id: 'current'
-						},
-						{
-							type: 'Fixed Deposit Account',
-							id: 'fixed'
-						}
+						type: 'Savings Account',
+						id: 'savings'
+					},
+					{
+						type: 'Current Account',
+						id: 'current'
+					},
+					{
+						type: 'Fixed Deposit Account',
+						id: 'fixed'
+					}
 					],
 				}
 			},
@@ -448,34 +446,29 @@
 					this.contact = false
 				},
 				nextContact() {
-					if (this.name !== '' && this.email !== '' && this.Phone_number !== '' && this.Address !== '' &&
-						this.Gender !== '' && this.Country !== '' && this.State !== '' && this.Picture !== '') {
-						this.profile = false
-						this.contact = true
-						this.profileUntick = false
-						this.profileTick = true
-					}
+					// if (this.name !== '' && this.email !== '' && this.Phone_number !== '' && this.Address !== '' &&
+					// 	this.Gender !== '' && this.Country !== '' && this.State !== '' && this.Picture !== '') {
+					this.stage = 1
+					console.log(this.stage)
+					// }
+
 				},
 				nextSettlement() {
-					if (this.Social !== '' && this.Next_of_kin !== '' && this.Kin_Phone_number !== '' && this
-						.Kin_Relationship !== '') {
-						this.contact = false
-						this.settlement = true
-						this.socialUntick = false
-						this.socialTick = true
-					}
+					// if (this.Social !== '' && this.Next_of_kin !== '' && this.Kin_Phone_number !== '' && this
+					// 	.Kin_Relationship !== '') {
+					this.stage = 2
+					console.log(this.stage)
+					// }
 				},
 				nextDocument() {
-					if (this.Bank_Name !== '' && this.Account_Number !== '' && this.Bvn !== '' && this.accountMode !==
-						'') {
-						this.settlement = false
-						this.document = true
-						this.settleUntick = false
-						this.settleTick = true
-					}
+					// if (this.Bank_Name !== '' && this.Account_Number !== '' && this.Bvn !== '' && this.accountMode !==
+					// 	'') {
+					this.stage = 3
+					console.log(this.stage)
+					// }
 				},
-				submit(){
-					if(this.Id !== '' && this.Nepa_Bill !== '' && this.Govt_letter !== ''){
+				submit() {
+					if (this.Id !== '' && this.Nepa_Bill !== '' && this.Govt_letter !== '') {
 						console.log("I have submitted")
 						this.doTick = true
 						this.doUntick = false
